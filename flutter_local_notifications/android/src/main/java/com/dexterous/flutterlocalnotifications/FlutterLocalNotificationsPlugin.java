@@ -30,6 +30,7 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
@@ -182,6 +183,7 @@ public class FlutterLocalNotificationsPlugin
   private static final String INPUT_RESULT = "FlutterLocalNotificationsPluginInputResult";
   private static final String INPUT = "input";
   private static final String NOTIFICATION_RESPONSE_TYPE = "notificationResponseType";
+  private static final String TAG = "FlutterLocalNotifications";
   static String NOTIFICATION_DETAILS = "notificationDetails";
   static Gson gson;
   private MethodChannel channel;
@@ -1247,6 +1249,7 @@ public class FlutterLocalNotificationsPlugin
 
   @Override
   public void onAttachedToEngine(FlutterPluginBinding binding) {
+    Log.w(TAG, "onAttachedToEngine");
     this.applicationContext = binding.getApplicationContext();
     this.channel = new MethodChannel(binding.getBinaryMessenger(), METHOD_CHANNEL);
     this.channel.setMethodCallHandler(this);
@@ -1254,6 +1257,7 @@ public class FlutterLocalNotificationsPlugin
 
   @Override
   public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
+    Log.w(TAG, "onDetachedFromEngine");
     this.channel.setMethodCallHandler(null);
     this.channel = null;
     this.applicationContext = null;
@@ -1261,6 +1265,7 @@ public class FlutterLocalNotificationsPlugin
 
   @Override
   public void onAttachedToActivity(ActivityPluginBinding binding) {
+    Log.w(TAG, "onAttachedToActivity");
     binding.addOnNewIntentListener(this);
     binding.addRequestPermissionsResultListener(this);
     mainActivity = binding.getActivity();
@@ -1268,11 +1273,13 @@ public class FlutterLocalNotificationsPlugin
 
   @Override
   public void onDetachedFromActivityForConfigChanges() {
+    Log.w(TAG, "onDetachedFromActivityForConfigChanges");
     this.mainActivity = null;
   }
 
   @Override
   public void onReattachedToActivityForConfigChanges(ActivityPluginBinding binding) {
+    Log.w(TAG, "onReattachedToActivityForConfigChanges");
     binding.addOnNewIntentListener(this);
     binding.addRequestPermissionsResultListener(this);
     mainActivity = binding.getActivity();
@@ -1280,11 +1287,13 @@ public class FlutterLocalNotificationsPlugin
 
   @Override
   public void onDetachedFromActivity() {
+    Log.w(TAG, "onDetachedFromActivity");
     this.mainActivity = null;
   }
 
   @Override
   public void onMethodCall(MethodCall call, @NonNull Result result) {
+    Log.w(TAG, "onMethodCall" + call.method);
     switch (call.method) {
       case INITIALIZE_METHOD:
         initialize(call, result);
