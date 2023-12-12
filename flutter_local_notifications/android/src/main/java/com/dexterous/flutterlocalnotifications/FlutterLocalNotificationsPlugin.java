@@ -1288,7 +1288,6 @@ public class FlutterLocalNotificationsPlugin
   public void onReattachedToActivityForConfigChanges(ActivityPluginBinding binding) {
     Log.w(TAG, "onReattachedToActivityForConfigChanges");
     binding.addOnNewIntentListener(this);
-    binding.addRequestPermissionsResultListener(this);
     mainActivity = binding.getActivity();
   }
 
@@ -1702,10 +1701,7 @@ public class FlutterLocalNotificationsPlugin
     if (intent.getExtras() == null) {
       return false;
     }
-    boolean res = sendNotificationPayloadMessage(intent);
-    if (res && mainActivity != null) {
-      mainActivity.setIntent(intent);
-    }
+    mainActivity.setIntent(intent);
     return res;
   }
 
