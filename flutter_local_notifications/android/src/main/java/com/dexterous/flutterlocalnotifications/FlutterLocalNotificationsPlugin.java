@@ -1270,12 +1270,10 @@ public class FlutterLocalNotificationsPlugin
     binding.addRequestPermissionsResultListener(this);
     mainActivity = binding.getActivity();
 
-    Intent mainActivityIntent = mainActivity.getIntent();
-    if (!launchedActivityFromHistory(mainActivityIntent)) {
-      if (SELECT_FOREGROUND_NOTIFICATION_ACTION.equals(mainActivityIntent.getAction())) {
-        Map<String, Object> notificationResponse =
-            extractNotificationResponseMap(mainActivityIntent);
-        processForegroundNotificationAction(mainActivityIntent, notificationResponse);
+    if (mainActivity.getIntent() != null && mainActivity.getIntent().getExtras() != null) {
+      if ((mainActivity.getIntent().getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY)
+          != Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) {
+        onNewIntent(mainActivity.getIntent());
       }
     }
   }
@@ -1701,6 +1699,9 @@ public class FlutterLocalNotificationsPlugin
 
   @Override
   public boolean onNewIntent(Intent intent) {
+    if (intent.getExtras() == null) {
+      return false;
+    }
     boolean res = sendNotificationPayloadMessage(intent);
     if (res && mainActivity != null) {
       mainActivity.setIntent(intent);
