@@ -321,7 +321,7 @@ public class FlutterLocalNotificationsPlugin
             actionBuilder.addRemoteInput(remoteInput.build());
           }
         }
-        builder.addAction(actionBuilder.build());
+        // builder.addAction(actionBuilder.build());
       }
     }
 
