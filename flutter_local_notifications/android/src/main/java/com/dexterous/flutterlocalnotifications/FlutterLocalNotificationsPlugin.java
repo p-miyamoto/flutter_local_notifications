@@ -1702,7 +1702,7 @@ public class FlutterLocalNotificationsPlugin
       return false;
     }
     mainActivity.setIntent(intent);
-    return res;
+    return true;
   }
 
   private Boolean sendNotificationPayloadMessage(Intent intent) {
