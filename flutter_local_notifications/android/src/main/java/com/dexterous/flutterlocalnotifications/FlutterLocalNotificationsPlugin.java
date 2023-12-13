@@ -216,6 +216,7 @@ public class FlutterLocalNotificationsPlugin
       setupNotificationChannel(context, notificationChannelDetails);
     }
     Intent intent = getLaunchIntent(context);
+    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     intent.setAction(SELECT_NOTIFICATION);
     intent.putExtra(NOTIFICATION_ID, notificationDetails.id);
     intent.putExtra(PAYLOAD, notificationDetails.payload);
@@ -224,7 +225,7 @@ public class FlutterLocalNotificationsPlugin
       flags |= PendingIntent.FLAG_IMMUTABLE;
     }
     PendingIntent pendingIntent =
-        PendingIntent.getActivity(context, notificationDetails.id, intent, PendingIntent.FLAG_NO_CREATE);
+        PendingIntent.getActivity(context, notificationDetails.id, intent, PendingIntent.FLAG_ONE_SHOT);
     DefaultStyleInformation defaultStyleInformation =
         (DefaultStyleInformation) notificationDetails.styleInformation;
     NotificationCompat.Builder builder =
