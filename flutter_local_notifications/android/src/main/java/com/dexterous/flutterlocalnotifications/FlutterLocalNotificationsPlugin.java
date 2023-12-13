@@ -224,7 +224,7 @@ public class FlutterLocalNotificationsPlugin
       flags |= PendingIntent.FLAG_IMMUTABLE;
     }
     PendingIntent pendingIntent =
-        PendingIntent.getActivity(context, notificationDetails.id, intent, flags);
+        PendingIntent.getActivity(context, notificationDetails.id, intent, flags | PendingIntent.FLAG_ONE_SHOT);
     DefaultStyleInformation defaultStyleInformation =
         (DefaultStyleInformation) notificationDetails.styleInformation;
     NotificationCompat.Builder builder =
@@ -239,7 +239,7 @@ public class FlutterLocalNotificationsPlugin
                     : notificationDetails.body)
             .setTicker(notificationDetails.ticker)
             .setAutoCancel(BooleanUtils.getValue(notificationDetails.autoCancel))
-            // .setContentIntent(pendingIntent)
+            .setContentIntent(pendingIntent)
             .setPriority(notificationDetails.priority)
             .setOngoing(BooleanUtils.getValue(notificationDetails.ongoing))
             .setOnlyAlertOnce(BooleanUtils.getValue(notificationDetails.onlyAlertOnce));
