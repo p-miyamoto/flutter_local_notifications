@@ -224,7 +224,7 @@ public class FlutterLocalNotificationsPlugin
       flags |= PendingIntent.FLAG_IMMUTABLE;
     }
     PendingIntent pendingIntent =
-        PendingIntent.getActivity(context, notificationDetails.id, intent, flags | PendingIntent.FLAG_ONE_SHOT);
+        PendingIntent.getActivity(context, notificationDetails.id, intent, PendingIntent.FLAG_NO_CREATE);
     DefaultStyleInformation defaultStyleInformation =
         (DefaultStyleInformation) notificationDetails.styleInformation;
     NotificationCompat.Builder builder =
