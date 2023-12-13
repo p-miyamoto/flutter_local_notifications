@@ -1268,7 +1268,7 @@ public class FlutterLocalNotificationsPlugin
     Log.w(TAG, "onAttachedToActivity");
     binding.addOnNewIntentListener(this);
     binding.addRequestPermissionsResultListener(this);
-    mainActivity = binding.getActivity();
+    this.mainActivity = binding.getActivity();
 
     if (mainActivity.getIntent() != null && mainActivity.getIntent().getExtras() != null) {
       if ((mainActivity.getIntent().getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY)
