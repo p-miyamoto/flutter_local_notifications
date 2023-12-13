@@ -1698,10 +1698,13 @@ public class FlutterLocalNotificationsPlugin
 
   @Override
   public boolean onNewIntent(Intent intent) {
+    Log.w(TAG, "onNewIntent");
     if (intent.getExtras() == null) {
+      Log.w(TAG, "onNewIntent→false");
       return false;
     }
     mainActivity.setIntent(intent);
+    Log.w(TAG, "onNewIntent→true");
     return true;
   }
 
