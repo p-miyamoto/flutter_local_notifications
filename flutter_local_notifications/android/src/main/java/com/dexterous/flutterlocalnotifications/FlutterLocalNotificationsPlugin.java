@@ -239,7 +239,7 @@ public class FlutterLocalNotificationsPlugin
                     : notificationDetails.body)
             .setTicker(notificationDetails.ticker)
             .setAutoCancel(BooleanUtils.getValue(notificationDetails.autoCancel))
-            .setContentIntent(pendingIntent)
+            // .setContentIntent(pendingIntent)
             .setPriority(notificationDetails.priority)
             .setOngoing(BooleanUtils.getValue(notificationDetails.ongoing))
             .setOnlyAlertOnce(BooleanUtils.getValue(notificationDetails.onlyAlertOnce));
@@ -321,7 +321,7 @@ public class FlutterLocalNotificationsPlugin
             actionBuilder.addRemoteInput(remoteInput.build());
           }
         }
-        // builder.addAction(actionBuilder.build());
+        builder.addAction(actionBuilder.build());
       }
     }
 
